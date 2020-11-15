@@ -3,10 +3,18 @@ import {AddReviewDto} from '../interfaces/review/dto/add-review.dto';
 import * as reviewRepo from '../repositories/reviews.repository';
 import {DeleteReviewDto} from '../interfaces/review/dto/delete-review.dto';
 
+export const getReviews = async (req: Request, res: Response) => {
+    const result = await reviewRepo.getReviews(req.params.bookId);
+    if (result.errors) {
+        return res.status(400).json({errors: result.errors});
+    }
+    return res.json({success: result.data});
+};
+
 export const putReview = async (req: Request, res: Response) => {
     const addReviewDto: AddReviewDto = {
         id: req.body.id,
-        bookId: req.params.bookId,
+        bookId: req.body.bookId,
         userId: (req as any).user.sub,
         rating: req.body.rating,
         reviewText: req.body.reviewText,

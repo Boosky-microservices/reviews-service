@@ -1,4 +1,5 @@
-import {Schema} from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
+import {ReviewModel} from '../interfaces/review/review.interface';
 
 const ReviewSchema = new Schema(
     {
@@ -13,19 +14,17 @@ const ReviewSchema = new Schema(
             maxlength: 1000,
         },
         book: {
-            type: Schema.Types.ObjectId,
+            type: String,
             required: true,
         },
         writer: {
-            type: Schema.Types.ObjectId,
+            type: String,
             required: true,
         },
     },
     {timestamps: true},
 );
 
-/*
 ReviewSchema.index({ book: 1, writer: 1 }, { unique: true });
-*/
 
-export default {name: 'Review', schema: ReviewSchema};
+export default mongoose.model<ReviewModel>('Review', ReviewSchema);

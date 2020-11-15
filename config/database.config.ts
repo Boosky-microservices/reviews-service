@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import reviewModel from '../models/review.model';
 
 export const buildConnection = () => {
   const mongooseOptions: mongoose.ConnectionOptions = {
@@ -13,6 +12,3 @@ export const buildConnection = () => {
 
   return mongoose.connect(process.env.MONGO_URI || 'mongodb://root:example@localhost:27017', mongooseOptions);
 };
-
-// register schemas
-mongoose.model(reviewModel.name, reviewModel.schema);

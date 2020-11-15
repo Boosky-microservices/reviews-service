@@ -1,8 +1,23 @@
 import {checkJwt} from '../config/auth.config';
 import {reviewValidations, validate} from '../config/validation.config';
-import {deleteReview, putReview} from '../repositories/reviews.repository';
+import {deleteReview, getReviews, putReview} from '../controllers/review.controller';
 import {Router} from 'express';
 const route = Router();
+/**
+ * @swagger
+ * /reviews:
+ *  get:
+ *    tags:
+ *    - "review"
+ *    summary: get reviews
+ *    description: get reviews
+ *    parameters:
+ *      - in: query
+ *        name: q
+ *    responses:
+ *      '200':
+ */
+route.get('/:bookId', getReviews);
 
 /**
  * @swagger
@@ -33,7 +48,7 @@ const route = Router();
  *    security:
  *      - bearerAuth: []
  */
-route.put('/:bookId/reviews', checkJwt, reviewValidations, validate, putReview);
+route.put('/', checkJwt, reviewValidations, validate, putReview);
 /**
  * @swagger
  * /books/{bookId}/reviews/:
@@ -73,7 +88,9 @@ route.put('/:bookId/reviews', checkJwt, reviewValidations, validate, putReview);
  *    security:
  *      - bearerAuth: []
  */
-route.patch('/:bookId/reviews', checkJwt, reviewValidations, validate, putReview);
-route.delete('/:bookId/reviews', checkJwt, deleteReview);
+/*
+route.patch('/:id', checkJwt, reviewValidations, validate, putReview);
+*/
+route.delete('/:id', checkJwt, deleteReview);
 
 export default route;

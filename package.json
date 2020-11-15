@@ -7,7 +7,7 @@
     "tsc": "tsc",
     "start": "npm run prod",
     "start:prod": "node ./dist/app.js",
-    "start:dev": "ts-node-dev --respawn --transpileOnly ./app.ts",
+    "start:dev": "ts-node-dev --respawn app.ts",
     "prod": "tsc && node ./dist/app.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "debug": "node --inspect app.js"

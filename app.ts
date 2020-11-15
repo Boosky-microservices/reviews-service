@@ -19,6 +19,7 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(cors());
 import routes from './routes/app.routes';
 
+app.use('/health', (req, res) => res.send('ok'));
 app.use('/api/v1/', routes);
 app.use('/api-docs', swagger);
 
