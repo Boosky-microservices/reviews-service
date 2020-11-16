@@ -23,13 +23,13 @@ app.use('/health', (req, res) => res.send('ok'));
 app.use('/api/v1/', routes);
 app.use('/api-docs', swagger);
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3001;
 
 buildConnection()
     .then(() => {
         Logger.info('Connection to DB Established');
         app.listen(PORT, () => {
-            Logger.info('Boosky reviews service listening on http://localhost:4000');
+            Logger.info('Boosky reviews service listening on http://localhost:' + PORT);
         });
     })
     .catch(err => {
