@@ -47,7 +47,7 @@ export const putReview = async (addReviewDto: AddReviewDto): Promise<Result<bool
 export const deleteReview = async (deleteReviewDto: DeleteReviewDto): Promise<Result<boolean>> => {
     const result: Result<boolean> = {data: false, errors: null};
     try {
-        await Review.deleteOne({_id: deleteReviewDto.id});
+        await Review.deleteOne({book: deleteReviewDto.bookId, writer: deleteReviewDto.userId});
         result.data = true;
     } catch (error) {
         result.errors = error;

@@ -54,8 +54,23 @@ export const putReview = async (req: Request, res: Response) => {
 
 export const deleteReview = async (req: Request, res: Response) => {
     const deleteReviewDto: DeleteReviewDto = {
-        id: req.params.id,
+        bookId: req.body.bookId,
+        userId: (req as any).user.sub,
     };
+
+    const ratingInteractionEvent: Event = {
+        type: 'DELETE_BOOK_RATING',
+        payload: {
+            bookId: deleteReviewDto.bookId,
+            userId: prepareAuth0UserId(deleteReviewDto.userId),
+        },
+        date: '' + Date.now(),
+    };
+
+    createProducer().then(producer => producer.send({
+        topic: RECOMMENDATION_EVENTS_TOPIC,
+        messages: [{key: '' + Date.now(), value: JSON.stringify(ratingInteractionEvent)}],
+    }));
 
     const result = await reviewRepo.deleteReview(deleteReviewDto);
     if (result.errors) {

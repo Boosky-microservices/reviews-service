@@ -49,48 +49,7 @@ route.get('/:bookId', getReviews);
  *      - bearerAuth: []
  */
 route.put('/', checkJwt, reviewValidations, validate, putReview);
-/**
- * @swagger
- * /books/{bookId}/reviews/:
- *  parameters:
- *    - in: path
- *      name: bookId
- *      schema:
- *        type: string
- *  patch:
- *    parameters:
- *      - in: query
- *        name: rid
- *        schema:
- *          type: string
- *        description: recommendation id
- *      - in: body
- *        name: body
- *        schema:
- *          $ref: "#/definitions/ReviewDto"
- *    security:
- *      - bearerAuth: []
- *    tags:
- *    - "book"
- *    summary: updates review for the book
- *    description: updates review for the book
- *    responses:
- *      '200':
- *        description: Success!
- *  delete:
- *    tags:
- *    - "book"
- *    summary: deletes a review for the book
- *    description: deletes a review for the book
- *    responses:
- *      '200':
- *        description: Success!
- *    security:
- *      - bearerAuth: []
- */
-/*
-route.patch('/:id', checkJwt, reviewValidations, validate, putReview);
-*/
-route.delete('/:id', checkJwt, deleteReview);
+
+route.delete('/', checkJwt, deleteReview);
 
 export default route;

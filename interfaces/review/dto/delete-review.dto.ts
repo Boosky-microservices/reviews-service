@@ -1,3 +1,4 @@
 export interface DeleteReviewDto {
-  id: string;
+  bookId: string;
+  userId: string;
 }
