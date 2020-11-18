@@ -12,7 +12,6 @@ import serverless from 'serverless-http';
 // Load environement variables
 loadEnvVariables();
 
-// Create a new express application instance
 const app = express();
 
 app.use(bodyParser.json());
@@ -46,4 +45,5 @@ app.use((req: Request, res: Response) => {
     res.send({message: 'Server is running'});
 });
 
+// @ts-ignore
 export const handler: APIGatewayProxyHandler = serverless(app);
