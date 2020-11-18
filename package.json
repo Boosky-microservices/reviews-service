@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.4",
+    "serverless-offline": "^6.8.0",
     "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^5.20.1"
   }

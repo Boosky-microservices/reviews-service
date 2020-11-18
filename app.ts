@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {Request, Response} from 'express';
 import Logger from './config/logger.config';
 import swagger from './config/swagger.config';
 import methodOverride from 'method-override';
@@ -6,7 +6,8 @@ import { buildConnection } from './config/database.config';
 import { loadEnvVariables } from './config/dotenv.config';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import sls from 'serverless-http';
+import {APIGatewayProxyHandler} from 'aws-lambda';
+import serverless from 'serverless-http';
 
 // Load environement variables
 loadEnvVariables();
@@ -38,4 +39,11 @@ buildConnection()
         process.exit(1);
     });
 
-export const handler = sls(app);
+app.get('/message', (req: Request, res: Response) => {
+    res.send({message: 'This is message route'});
+});
+app.use((req: Request, res: Response) => {
+    res.send({message: 'Server is running'});
+});
+
+export const handler: APIGatewayProxyHandler = serverless(app);
