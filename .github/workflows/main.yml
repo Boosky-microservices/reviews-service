@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v1
+      - name: npm install
+        run: npm install
       - name: serverless
         uses: serverless/github-action@v1.53.0
       - name: set serverless credentials
