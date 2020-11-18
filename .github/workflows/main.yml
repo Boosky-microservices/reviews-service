@@ -15,7 +15,7 @@ jobs:
       - name: build ts
         run: npm run tsc && mv ./dist/app.js ./dist/index.js && mv node_modules ./dist/
       - name: zip source
-        run: cd ./dist && zip deployment.zip *
+        run: cd ./dist && zip -r deployment.zip *
       - name: default deploy
         uses: appleboy/lambda-action@master
         with:
