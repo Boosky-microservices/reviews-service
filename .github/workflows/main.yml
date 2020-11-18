@@ -8,19 +8,9 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v1
-      - name: setup nodejs
-        uses: actions/setup-node@v2.1.2
-      - name: npm install
-        run: npm install
-      - name: build ts
-        run: npm run tsc && mv ./dist/app.js ./dist/index.js && mv node_modules ./dist/
-      - name: zip source
-        run: cd ./dist && zip -r deployment.zip *
-      - name: default deploy
-        uses: appleboy/lambda-action@master
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_REGION }}
-          function_name: review-service
-          zip_file: ./dist/deployment.zip
+      - name: serverless
+        uses: serverless/github-action@v1.53.0
+      - name: set serverless credentials
+        run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: deploy review-service
+        run: serverless deploy
