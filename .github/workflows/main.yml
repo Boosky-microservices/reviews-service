@@ -13,7 +13,9 @@ jobs:
       - name: npm install
         run: npm install
       - name: build ts
-        run: npm run tsc && mv ./dist/app.js ./dist/index.js
+        run: npm run tsc && mv ./dist/app.js ./dist/index.js && mv node_modules ./dist/
+      - name: zip source
+        run: zip deployment.zip ./dist/*
       - name: default deploy
         uses: appleboy/lambda-action@master
         with:
@@ -21,4 +23,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: review-service
-          source: ./dist/
+          zip_file: ./deployment.zip
