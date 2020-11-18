@@ -1,18 +1,28 @@
-name: deploy review service to lambda
-on: [push]
-jobs:
+name: Deploy master branch
 
-  deploy_source:
-    name: deploy lambda from source
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: deploy
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
     steps:
-      - name: checkout source code
-        uses: actions/checkout@v1
-      - name: npm install
-        run: npm install
-      - name: serverless
-        uses: serverless/github-action@v1.53.0
-      - name: set serverless credentials
-        run: serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name: deploy review-service
-        run: serverless deploy
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - run: npm ci
+    - name: serverless deploy
+      uses: serverless/github-action@master
+      with:
+        args: deploy
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
