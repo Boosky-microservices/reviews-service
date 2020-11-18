@@ -9,7 +9,7 @@ import cors from 'cors';
 import {APIGatewayProxyHandler} from 'aws-lambda';
 import serverless from 'serverless-http';
 
-// Load environement variables
+// Load environment variables
 loadEnvVariables();
 
 const app = express();
