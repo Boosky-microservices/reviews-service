@@ -6,6 +6,7 @@ import { buildConnection } from './config/database.config';
 import { loadEnvVariables } from './config/dotenv.config';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import sls from 'serverless-http';
 
 // Load environement variables
 loadEnvVariables();
@@ -36,3 +37,5 @@ buildConnection()
         Logger.error('Error on start: ' + err.stack);
         process.exit(1);
     });
+
+export const handler = sls(app);
