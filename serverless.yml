@@ -1,5 +1,5 @@
 service:
-  name: review-service
+  name: booksy-service
 custom:
   webpack:
     webpackConfig: ./webpack.config.js
@@ -15,7 +15,7 @@ provider:
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 functions:
-  hello:
+  reviews:
     handler: app.handler
     events:
       - http: ANY /
