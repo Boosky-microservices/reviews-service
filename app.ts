@@ -38,12 +38,5 @@ buildConnection()
         process.exit(1);
     });
 
-app.get('/message', (req: Request, res: Response) => {
-    res.send({message: 'This is message route'});
-});
-app.use((req: Request, res: Response) => {
-    res.send({message: 'Server is running'});
-});
-
 // @ts-ignore
 export const handler: APIGatewayProxyHandler = serverless(app);
