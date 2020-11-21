@@ -19,4 +19,3 @@ functions:
     handler: app.handler
     events:
       - http: ANY reviews
-      - http: 'ANY {proxy+}'
