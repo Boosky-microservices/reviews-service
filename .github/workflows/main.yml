@@ -8,20 +8,18 @@ jobs:
     steps:
       - name: checkout source code
         uses: actions/checkout@v1
-      - name: setup nodejs
-        uses: actions/setup-node@v2.1.2
+      - uses: actions/setup-node@v2.1.2
+      - uses: actions/setup-python@v2
+      - name: Install aws cli and deploy
+        run: pip install awscli
+      - run: aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+      - run: aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - run: aws configure set region eu-west-3
       - name: npm install
         run: npm install
       - name: build ts
         run: npm run tsc && mv ./dist/app.js ./dist/index.js && mv node_modules ./dist/
       - name: zip source
         run: cd ./dist && zip -r deployment.zip *
-      - name: default deploy
-        uses: appleboy/lambda-action@master
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_REGION }}
-          function_name: reviews-service
-          handler: app.handler
-          zip_file: ./dist/deployment.zip
+      - name: deploy to aws
+        run: aws lambda update-function-code --function-name reviews-service --zip-file fileb://dist/reviews-service.zip
