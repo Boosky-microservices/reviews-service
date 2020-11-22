@@ -22,4 +22,4 @@ jobs:
       - name: zip source
         run: cd ./dist && zip -r deployment.zip *
       - name: deploy to aws
-        run: aws lambda update-function-code --function-name reviews-service --zip-file fileb://dist/reviews-service.zip
+        run: aws lambda update-function-code --function-name reviews-service --zip-file fileb://dist/deployment.zip
