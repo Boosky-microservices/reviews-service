@@ -18,4 +18,4 @@ functions:
   reviews:
     handler: app.handler
     events:
-      - http: ANY /api/v1/reviews/{proxy+}
+      - http: ANY /reviews/{proxy+}
