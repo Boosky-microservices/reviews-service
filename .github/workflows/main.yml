@@ -1,4 +1,4 @@
-name: deploy review service to lambda
+name: deploy
 on: [push]
 jobs:
 
