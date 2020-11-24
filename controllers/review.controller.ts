@@ -14,7 +14,7 @@ export const getReviews = async (req: Request, res: Response) => {
     if (result.errors) {
         return res.status(400).json({errors: result.errors});
     }
-    return res.json({success: result.data});
+    return res.json({data: result.data});
 };
 
 export const putReview = async (req: Request, res: Response) => {
@@ -49,7 +49,7 @@ export const putReview = async (req: Request, res: Response) => {
         topic: RECOMMENDATION_EVENTS_TOPIC,
         messages: [{key: '' + Date.now(), value: JSON.stringify(ratingInteractionEvent)}],
     }));
-    return res.json({success: result.data});
+    return res.json({data: result.data});
 };
 
 export const deleteReview = async (req: Request, res: Response) => {
@@ -76,5 +76,5 @@ export const deleteReview = async (req: Request, res: Response) => {
     if (result.errors) {
         return res.status(400).json({errors: result.errors});
     }
-    return res.json({success: result.data});
+    return res.json({data: result.data});
 };
